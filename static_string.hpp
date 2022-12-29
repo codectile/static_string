@@ -51,6 +51,17 @@ public:
 		static_string_helper::copy_n(result.m_String + len, availability, other.m_String);
 		return result;
 	}
+	constexpr bool operator==(const static_string& other) const noexcept
+	{
+		const size_t len = length();
+		if (len != other.length())
+			return false;
+		for (size_t i = 0; i < len; i++)
+			if (m_String[i] != other.m_String[i])
+				return false;
+		return true;
+	}
+	constexpr bool operator!=(const static_string& other) const noexcept { return !operator==(other); }
 	static_string(static_string&&) noexcept = default;
 	static_string& operator=(static_string&&) noexcept = default;
 	constexpr const char* data() const noexcept { return m_String; }
