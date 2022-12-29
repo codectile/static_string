@@ -19,7 +19,7 @@ int main()
 }
 ```
 
-## Assembly output of GCC with optimization -O2
+## Assembly output from GCC with optimization -O2
 ```
 .LC1:
         .string "New string: %s\n"
