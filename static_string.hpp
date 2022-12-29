@@ -37,6 +37,12 @@ public:
 			static_string_helper::copy_n(m_String, SIZE - 1, other.m_String);
 		return *this;
 	}
+	constexpr static_string& operator=(const char* string) noexcept
+	{
+		const size_t len = static_string_helper::const_string_length(string);
+		static_string_helper::copy_n(m_String, len > SIZE - 1 ? SIZE - 1 : len, string);
+		return *this;
+	}
 	constexpr char operator[](size_t n) const noexcept { return m_String[n]; }
 	constexpr static_string operator+(const static_string& other) const noexcept
 	{
