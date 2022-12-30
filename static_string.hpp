@@ -13,6 +13,7 @@
 */
 
 #pragma once
+#include <algorithm>
 
 class static_string
 {
@@ -72,6 +73,7 @@ public:
 	static_string& operator=(static_string&&) noexcept = default;
 	constexpr const char* data() const noexcept { return m_String; }
 	constexpr size_t length() const noexcept { return static_string_helper::const_string_length(m_String); }
+	static constexpr size_t get_max_size() { return SIZE; }
 	constexpr void clear() noexcept { static_string_helper::fill_n(m_String, SIZE, 0); }
 	constexpr bool is_empty() const noexcept { return !static_cast<bool>(m_String[0]); }
 	constexpr static_string substr(size_t pos, size_t len) const noexcept
@@ -87,7 +89,21 @@ public:
 		static_string_helper::copy_n(result.m_String, len, m_String + pos);
 		return result;
 	}
-private:
+	constexpr bool find(const static_string& pattern) const noexcept
+	{
+		const size_t len = length();
+		const int patternLength = pattern.length();
+		for (int i = 0; i <= len - patternLength; i++)
+		{
+			int j = 0;
+			while (j < patternLength && m_String[i + j] == pattern[j])
+				j++;
+			if (j == patternLength)
+				return true;
+		}
+		return false;
+	}
+	private:
 	struct static_string_helper
 	{
 		static constexpr size_t const_string_length(const char* string) noexcept
