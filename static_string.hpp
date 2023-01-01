@@ -91,8 +91,9 @@ public:
 	}
 	constexpr bool find(const static_string& pattern) const noexcept
 	{
-		if (const int patternLength = pattern.length())
+		if (!pattern.is_empty())
 		{
+			const size_t patternLength = pattern.length();
 			const size_t len = length();
 			for (int i = 0; i <= len - patternLength; i++)
 			{
