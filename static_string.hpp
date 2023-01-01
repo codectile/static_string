@@ -91,15 +91,17 @@ public:
 	}
 	constexpr bool find(const static_string& pattern) const noexcept
 	{
-		const size_t len = length();
-		const int patternLength = pattern.length();
-		for (int i = 0; i <= len - patternLength; i++)
+		if (const int patternLength = pattern.length())
 		{
-			int j = 0;
-			while (j < patternLength && m_String[i + j] == pattern[j])
-				j++;
-			if (j == patternLength)
-				return true;
+			const size_t len = length();
+			for (int i = 0; i <= len - patternLength; i++)
+			{
+				int j = 0;
+				while (j < patternLength && m_String[i + j] == pattern[j])
+					j++;
+				if (j == patternLength)
+					return true;
+			}
 		}
 		return false;
 	}
