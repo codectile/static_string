@@ -13,7 +13,6 @@
 */
 
 #pragma once
-#include <algorithm>
 
 class static_string
 {
@@ -106,7 +105,31 @@ public:
 		}
 		return false;
 	}
+	struct static_string_iterator
+	{
+		constexpr static_string_iterator(char* string) noexcept { m_Pointer = string; }
+		constexpr char& operator*() noexcept { return *m_Pointer; }
+		constexpr static_string_iterator& operator++() noexcept { ++m_Pointer;  return *this; }
+		constexpr static_string_iterator operator++(int) noexcept { const auto tmp(*this); ++(*this); return tmp; }
+		constexpr bool operator!=(const static_string_iterator& other) const noexcept { return *m_Pointer != *other.m_Pointer; }
 	private:
+		char* m_Pointer{ nullptr };
+	};
+	struct static_string_const_iterator
+	{
+		constexpr static_string_const_iterator(char* string) noexcept { m_Pointer = string; }
+		constexpr const char& operator*() noexcept { return *m_Pointer; }
+		constexpr static_string_const_iterator& operator++() noexcept { ++m_Pointer;  return *this; }
+		constexpr static_string_const_iterator operator++(int) noexcept { const auto tmp(*this); ++(*this); return tmp; }
+		constexpr bool operator!=(const static_string_const_iterator& other) const noexcept { return *m_Pointer != *other.m_Pointer; }
+	private:
+		char* m_Pointer{ nullptr };
+	};
+	constexpr static_string_const_iterator cbegin() const noexcept { return static_string_const_iterator{ const_cast<char*>(m_String) }; }
+	constexpr static_string_const_iterator cend() const noexcept { return static_string_const_iterator{ const_cast<char*>(&m_String[SIZE - 1]) }; }
+	constexpr static_string_iterator begin() noexcept { return static_string_iterator{ m_String }; }
+	constexpr static_string_iterator end() noexcept { return static_string_iterator{ &m_String[SIZE - 1] }; }
+private:
 	struct static_string_helper
 	{
 		static constexpr size_t const_string_length(const char* string) noexcept
