@@ -111,7 +111,7 @@ public:
 		constexpr char& operator*() noexcept { return *m_Pointer; }
 		constexpr static_string_iterator& operator++() noexcept { ++m_Pointer;  return *this; }
 		constexpr static_string_iterator operator++(int) noexcept { const auto tmp(*this); ++(*this); return tmp; }
-		constexpr bool operator!=(const static_string_iterator& other) const noexcept { return *m_Pointer != *other.m_Pointer; }
+		constexpr bool operator!=(const static_string_iterator& other) const noexcept { return m_Pointer != other.m_Pointer; }
 	private:
 		char* m_Pointer{ nullptr };
 	};
@@ -121,7 +121,7 @@ public:
 		constexpr const char& operator*() noexcept { return *m_Pointer; }
 		constexpr static_string_const_iterator& operator++() noexcept { ++m_Pointer;  return *this; }
 		constexpr static_string_const_iterator operator++(int) noexcept { const auto tmp(*this); ++(*this); return tmp; }
-		constexpr bool operator!=(const static_string_const_iterator& other) const noexcept { return *m_Pointer != *other.m_Pointer; }
+		constexpr bool operator!=(const static_string_const_iterator& other) const noexcept { return m_Pointer != other.m_Pointer; }
 	private:
 		char* m_Pointer{ nullptr };
 	};
