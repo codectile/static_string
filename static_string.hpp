@@ -118,7 +118,7 @@ public:
 	struct static_string_const_iterator
 	{
 		constexpr static_string_const_iterator(char* string) noexcept { m_Pointer = string; }
-		constexpr const char& operator*() noexcept { return *m_Pointer; }
+		constexpr const char& operator*() const noexcept { return *m_Pointer; }
 		constexpr static_string_const_iterator& operator++() noexcept { ++m_Pointer;  return *this; }
 		constexpr static_string_const_iterator operator++(int) noexcept { const auto tmp(*this); ++(*this); return tmp; }
 		constexpr bool operator!=(const static_string_const_iterator& other) const noexcept { return m_Pointer != other.m_Pointer; }
